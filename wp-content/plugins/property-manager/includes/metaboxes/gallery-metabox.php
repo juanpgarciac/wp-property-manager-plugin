@@ -1,13 +1,13 @@
 <?php
 
-class WP_Property_Manager_Blueprint_Metabox extends WP_Property_Manager_Metabox_Base
+class WP_Property_Manager_Gallery_Metabox extends WP_Property_Manager_Metabox_Base
 {
     
     public function __construct()
     {
-        $this->setID('blueprint');
-        $this->setTitle('Blueprint image:');
-        $this->setDescription('Blueprint image');
+        $this->setID('gallery');
+        $this->setTitle('Gallery:');
+        $this->setDescription('Gallery');
         parent::__construct();
 
         //dd( self::getAdminDir() . 'css/'.$this->getFieldID().'.css');

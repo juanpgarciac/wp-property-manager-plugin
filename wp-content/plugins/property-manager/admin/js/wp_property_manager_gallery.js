@@ -1,6 +1,6 @@
 jQuery(function($) {
     
-    $('body').on('click', '.wp_property_manager_blueprint.wc_multi_upload_image_button', function(e) {
+    $('body').on('click', '.wp_property_manager_gallery.wc_multi_upload_image_button', function(e) {
         e.preventDefault();
 
         var button = $(this),
@@ -33,12 +33,12 @@ jQuery(function($) {
             } else {
                 $(button).siblings('.attechments-ids').attr('value', attachment_ids);
             }
-            $(button).siblings('.wp_property_manager_blueprint.wc_multi_remove_image_button').show();
+            $(button).siblings('.wp_property_manager_gallery.wc_multi_remove_image_button').show();
         })
         .open();
     });
 
-    $('body').on('click', '.wp_property_manager_blueprint.wc_multi_remove_image_button', function() {
+    $('body').on('click', '.wp_property_manager_gallery.wc_multi_remove_image_button', function() {
         $(this).hide().prev().val('').prev().addClass('button').html('Add Media');
         $(this).parent().find('ul').empty();
         return false;
@@ -47,13 +47,13 @@ jQuery(function($) {
 });
 
 jQuery(document).ready(function() {
-    jQuery(document).on('click', '.wp_property_manager_blueprint.multi-upload-medias ul li i.delete-img', function() {
+    jQuery(document).on('click', '.wp_property_manager_gallery.multi-upload-medias ul li i.delete-img', function() {
         var ids = [];
         var this_c = jQuery(this);
         jQuery(this).parent().remove();
-        jQuery('.wp_property_manager_blueprint.multi-upload-medias ul li').each(function() {
+        jQuery('.wp_property_manager_gallery.multi-upload-medias ul li').each(function() {
             ids.push(jQuery(this).attr('data-attechment-id'));
         });
-        jQuery('.wp_property_manager_blueprint.multi-upload-medias').find('input[type="hidden"]').attr('value', ids);
+        jQuery('.wp_property_manager_gallery.multi-upload-medias').find('input[type="hidden"]').attr('value', ids);
     });
 })

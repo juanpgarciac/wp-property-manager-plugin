@@ -75,7 +75,8 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
             WP_Property_Manager_Construction_Status_Metabox::class,
             WP_Property_Manager_Sale_Status_Metabox::class,
             WP_Property_Manager_Type_Metabox::class,        
-            WP_Property_Manager_Blueprint_Metabox::class
+            WP_Property_Manager_Blueprint_Metabox::class,
+            WP_Property_Manager_Gallery_Metabox::class
         ];
         WP_Property_Manager_Admin::init($initAdminClasses);
     }else{
