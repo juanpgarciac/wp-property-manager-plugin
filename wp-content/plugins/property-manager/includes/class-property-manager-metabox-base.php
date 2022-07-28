@@ -35,6 +35,17 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         $this->description = $description;
     }
 
+    public function getTitle(){
+        return $this->title;
+    }
+    public function getDescription(){
+        return $this->description;
+    }
+
+    public function getID(){
+        return $this->id;
+    }
+
 
     protected function getValue($post,$default = null)
     {
@@ -43,7 +54,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     }
 
     protected  function getFieldID(){
-        return $this->field_base . $this->id;
+        return $this->field_base . $this->getID();
     }
 
     protected  function getMetaKey(){
@@ -54,7 +65,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     {
         add_meta_box(
             $this->getFieldID(),        // Unique ID
-            $this->title,               // Box title
+            $this->getTitle(),               // Box title
             [$this,'custom_box_html'],  //Content callback, must be of type callable
             self::getCPT()              // Post type
         );
@@ -63,7 +74,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     public function label($print = true)
     {
         ?>
-            <label for="<?=$this->getFieldID()?>"><?=__($this->description,self::getDomain())?></label>
+            <label for="<?=$this->getFieldID()?>"><?=__($this->getDescription(),self::getDomain())?></label>
         <?php
     }
 
