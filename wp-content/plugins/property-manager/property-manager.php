@@ -35,14 +35,24 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
     define('WP_PM_CPT','property-manager-cpt');
     define('WP_PM_DOMAIN','property-manager-domain');
 
-    require plugin_dir_path( __FILE__ ) . 'includes/class-property-manager-base.php';
-    require plugin_dir_path( __FILE__ ) . 'includes/class-property-manager.php';
-    require plugin_dir_path( __FILE__ ) . 'includes/class-property-manager-cpt.php';
-    require plugin_dir_path( __FILE__ ) . 'includes/class-property-manager-taxonomy.php';
-    
+
+    $fileGroups = [
+        plugin_dir_path( __FILE__ )."includes/*.php",
+        plugin_dir_path( __FILE__ )."includes/metaboxes/*.php"
+    ];
+
+    foreach ($fileGroups as $currDirectory) {
+        foreach (glob($currDirectory, GLOB_NOCHECK) as $filename) {
+            if(file_exists($filename))
+                require $filename;
+        }
+    }
+
     $initClasses = [
         WP_Property_Manager_CPT::class,
-        WP_Property_Manager_Taxonomy::class
+        WP_Property_Manager_Taxonomy::class,
+        WP_Property_Manager_Price_Metabox::class,
+        WP_Property_Manager_Bath_Metabox::class
 
     ];
     
