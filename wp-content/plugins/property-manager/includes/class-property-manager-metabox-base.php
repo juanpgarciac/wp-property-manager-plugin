@@ -13,17 +13,18 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
 
     public function __construct(){
         add_action( 'add_meta_boxes', [$this, 'add_custom_box']);
-        add_action( 'save_post', [$this, 'save_postdata']);     
+        add_action( 'save_post', [$this, 'save_postdata']);
     }  
 
-    static public function init($class = null)
+    static public function init()
     {
         return new static();
     }
 
-    protected function getValue($post)
+    protected function getValue($post,$default = null)
     {
-        return get_post_meta( $post->ID, $this->meta_key, true );
+        $value = get_post_meta( $post->ID, $this->meta_key, true );
+        return $value?$value:$default;
     }
 
     protected  function getFieldID(){
@@ -40,10 +41,17 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         );
     }
 
-    public function custom_box_html( $post )
+    public function label($print = true)
     {
         ?>
-        <label for="<?=$this->getFieldID()?>"><?=$this->description?></label>;
+            <label for="<?=$this->getFieldID()?>"><?=__($this->description,self::getDomain())?></label>
+        <?php
+    }
+
+    public function custom_box_html( $post )
+    {
+        $this->label();
+        ?>        
         <div><input name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>" value="<?=$this->getValue($post);?>" /></div>
         <?php
     }
