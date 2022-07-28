@@ -5,7 +5,6 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
 
      private $field_base = 'wp_property_manager_';
      protected $id = 'default_base_id';
-     protected $meta_key = '_default_meta_key';
      protected $title = '_default_base_title';
      protected $description = '_defaut_base_description';
 
@@ -14,6 +13,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     public function __construct(){
         add_action( 'add_meta_boxes', [$this, 'add_custom_box']);
         add_action( 'save_post', [$this, 'save_postdata']);
+        add_action('admin_enqueue_scripts',[$this,'enqueue_scripts']);
     }  
 
     static public function init()
@@ -21,14 +21,23 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         return new static();
     }
 
+    public function enqueue_scripts()
+    {
+
+    }
+
     protected function getValue($post,$default = null)
     {
-        $value = get_post_meta( $post->ID, $this->meta_key, true );
+        $value = get_post_meta( $post->ID, $this->getMetaKey(), true );
         return $value?$value:$default;
     }
 
     protected  function getFieldID(){
         return $this->field_base . $this->id;
+    }
+
+    protected  function getMetaKey(){
+        return '_'.$this->getFieldID();
     }
 
     public function add_custom_box()
@@ -60,7 +69,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         if ( array_key_exists( $this->getFieldID(), $_POST ) ) {
             update_post_meta(
                 $post_id,
-                $this->meta_key,
+                $this->getMetaKey(),
                 $_POST[$this->getFieldID()]
             );
         }

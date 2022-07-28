@@ -6,7 +6,6 @@ class WP_Property_Manager_CreationDate_Metabox extends WP_Property_Manager_Metab
     public function __construct()
     {
         $this->id = 'creationdate';
-        $this->meta_key = '_creationdate';
         $this->title = 'Creation date:';
         $this->description = 'Creation date:';
         parent::__construct();

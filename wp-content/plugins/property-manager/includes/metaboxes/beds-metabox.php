@@ -6,7 +6,6 @@ class WP_Property_Manager_Beds_Metabox extends WP_Property_Manager_Metabox_Base
     public function __construct()
     {
         $this->id = 'beds';
-        $this->meta_key = '_beds';
         $this->title = 'Beds Qty:';
         $this->description = 'How many beds?';
         parent::__construct();

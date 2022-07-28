@@ -32,12 +32,16 @@ register_deactivation_hook( __FILE__, 'deactivate_property_manager' );
 
 if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
     
+    define('WP_PM_VERSION','1.0.0');
     define('WP_PM_CPT','property-manager-cpt');
     define('WP_PM_DOMAIN','property-manager-domain');
-
-
+    define('WP_PM_PLUGINDIR',plugin_dir_path( __FILE__ ));
+    define('WP_PM_PLUGINURL',plugin_dir_url( __FILE__ ));
+    
     $fileGroups = [
+
         plugin_dir_path( __FILE__ )."includes/*.php",
+        plugin_dir_path( __FILE__ )."admin/*.php",
         plugin_dir_path( __FILE__ )."includes/metaboxes/*.php"
     ];
 
@@ -51,20 +55,41 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
     $initClasses = [
         WP_Property_Manager_CPT::class,
         WP_Property_Manager_Taxonomy::class,
-        WP_Property_Manager_CreationDate_Metabox::class,
-        WP_Property_Manager_Address_Metabox::class,        
-        WP_Property_Manager_Coordinates_Metabox::class,
-        WP_Property_Manager_Beds_Metabox::class,
-        WP_Property_Manager_Bath_Metabox::class,    
-        WP_Property_Manager_Garage_Metabox::class,
-        WP_Property_Manager_Price_Metabox::class,        
-        WP_Property_Manager_Surface_Metabox::class,        
-        WP_Property_Manager_Construction_Status_Metabox::class,
-        WP_Property_Manager_Sale_Status_Metabox::class,
-        WP_Property_Manager_Type_Metabox::class
+        /* *
+        /* */
 
     ];
-    
+
     WP_Property_Manager::init($initClasses);
+
+    if(is_admin()){
+        $initAdminClasses = [
+            WP_Property_Manager_CreationDate_Metabox::class,
+            WP_Property_Manager_Address_Metabox::class,        
+            WP_Property_Manager_Coordinates_Metabox::class,
+            WP_Property_Manager_Beds_Metabox::class,
+            WP_Property_Manager_Bath_Metabox::class,    
+            WP_Property_Manager_Garage_Metabox::class,
+            WP_Property_Manager_Price_Metabox::class,        
+            WP_Property_Manager_Surface_Metabox::class,        
+            WP_Property_Manager_Construction_Status_Metabox::class,
+            WP_Property_Manager_Sale_Status_Metabox::class,
+            WP_Property_Manager_Type_Metabox::class,        
+            WP_Property_Manager_Blueprint_Metabox::class
+        ];
+        WP_Property_Manager_Admin::init($initAdminClasses);
+    }else{
+        
+    }
+    
+
+}
+
+function dd(...$args){
+    ob_clean();
+    foreach($args as $a)
+        var_dump($a);
+    die();
+
 
 }

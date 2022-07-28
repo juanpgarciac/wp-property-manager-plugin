@@ -6,7 +6,6 @@ class WP_Property_Manager_Construction_Status_Metabox extends WP_Property_Manage
     public function __construct()
     {
         $this->id = 'constructionstatus';
-        $this->meta_key = '_constructionstatus';
         $this->title = 'Construction status:';
         $this->description = 'Select status';
         parent::__construct();

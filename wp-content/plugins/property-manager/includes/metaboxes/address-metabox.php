@@ -6,7 +6,6 @@ class WP_Property_Manager_Address_Metabox extends WP_Property_Manager_Metabox_Ba
     public function __construct()
     {
         $this->id = 'address';
-        $this->meta_key = '_address';
         $this->title = 'Address:';
         $this->description = 'Property address:';
         parent::__construct();

@@ -6,7 +6,6 @@ class WP_Property_Manager_Coordinates_Metabox extends WP_Property_Manager_Metabo
     public function __construct()
     {
         $this->id = 'coordinates';
-        $this->meta_key = '_coordinates';
         $this->title = 'Coordinates Group:';
         $this->description = 'Please input he coordinates (Lat, Lon)';
         parent::__construct();
@@ -35,7 +34,7 @@ class WP_Property_Manager_Coordinates_Metabox extends WP_Property_Manager_Metabo
             $value = serialize($s);
             update_post_meta(
                 $post_id,
-                $this->meta_key,
+                $this->getMetaKey(),
                 $value
             );
         }

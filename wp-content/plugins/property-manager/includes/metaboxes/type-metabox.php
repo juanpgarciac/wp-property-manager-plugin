@@ -6,7 +6,6 @@ class WP_Property_Manager_Type_Metabox extends WP_Property_Manager_Metabox_Base
     public function __construct()
     {
         $this->id = 'housetype';
-        $this->meta_key = '_housetype';
         $this->title = 'House Type:';
         $this->description = 'Select house type';
         parent::__construct();
