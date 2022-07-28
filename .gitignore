@@ -106,5 +106,5 @@ Thumbs.db
 # track these mu-plugins, plugins, and themes
 # add your own entries here
 !wp-content/plugins/property-manager/
-!wp-content/plugins/image-gallery-metabox/
+#!wp-content/plugins/image-gallery-metabox/
 #!wp-content/themes/example-theme/
