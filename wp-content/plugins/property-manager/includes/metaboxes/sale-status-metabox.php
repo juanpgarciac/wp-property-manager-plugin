@@ -5,9 +5,9 @@ class WP_Property_Manager_Sale_Status_Metabox extends WP_Property_Manager_Metabo
     
     public function __construct()
     {
-        $this->id = 'salestatus';
-        $this->title = 'Sale status:';
-        $this->description = 'Select status';
+        $this->setID('salestatus');
+        $this->setTitle('Sale status:');
+        $this->setDescription('Select status');
         parent::__construct();
 
     }

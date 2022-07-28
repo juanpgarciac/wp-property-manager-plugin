@@ -4,9 +4,9 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
 {
 
      private $field_base = 'wp_property_manager_';
-     protected $id = 'default_base_id';
-     protected $title = '_default_base_title';
-     protected $description = '_defaut_base_description';
+     private $id = 'default_base_id';
+     private $title = '_default_base_title';
+     private $description = '_defaut_base_description';
 
     static private $instance;
 
@@ -21,10 +21,20 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         return new static();
     }
 
-    public function enqueue_scripts()
-    {
+    public function enqueue_scripts(){ }
 
+    public function setID($id){
+        $this->id = $id;        
     }
+
+    public function setTitle($title){
+        $this->title = $title;
+    }
+
+    public function setDescription($description){
+        $this->description = $description;
+    }
+
 
     protected function getValue($post,$default = null)
     {

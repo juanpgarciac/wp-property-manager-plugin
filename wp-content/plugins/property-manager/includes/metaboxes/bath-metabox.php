@@ -5,9 +5,9 @@ class WP_Property_Manager_Bath_Metabox extends WP_Property_Manager_Metabox_Base
     
     public function __construct()
     {
-        $this->id = 'bath';
-        $this->title = 'Baths Qty:';
-        $this->description = 'Bath quantity:';
+        $this->setID('bath');
+        $this->setTitle('Baths Qty:');
+        $this->setDescription('Bath quantity:');
         parent::__construct();
     }
 

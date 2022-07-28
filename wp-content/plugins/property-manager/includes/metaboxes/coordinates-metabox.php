@@ -5,9 +5,9 @@ class WP_Property_Manager_Coordinates_Metabox extends WP_Property_Manager_Metabo
     
     public function __construct()
     {
-        $this->id = 'coordinates';
-        $this->title = 'Coordinates Group:';
-        $this->description = 'Please input he coordinates (Lat, Lon)';
+        $this->setID ('coordinates');
+        $this->setTitle ('Coordinates Group:');
+        $this->setDescription('Please input he coordinates (Lat, Lon)');
         parent::__construct();
 
     }

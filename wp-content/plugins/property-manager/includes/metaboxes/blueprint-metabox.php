@@ -5,9 +5,9 @@ class WP_Property_Manager_Blueprint_Metabox extends WP_Property_Manager_Metabox_
     
     public function __construct()
     {
-        $this->id = 'blueprint';
-        $this->title = 'Blueprint image:';
-        $this->description = 'Blueprint image';
+        $this->setID('blueprint');
+        $this->setTitle('Blueprint image:');
+        $this->setDescription('Blueprint image');
         parent::__construct();
 
         //dd( self::getAdminDir() . 'css/'.$this->getFieldID().'.css');
