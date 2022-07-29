@@ -19,7 +19,7 @@ class WP_Property_Manager_Sale_Status_Metabox extends WP_Property_Manager_Metabo
         ?>        
         <div>
             <select name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>">
-                <option><?=__('Please select',self::getDomain())?></option>
+                <option value=""><?=__('Please select',self::getDomain())?></option>
                 <?php
 
                     $taxonomy = get_taxonomy($this->getTaxonomy());

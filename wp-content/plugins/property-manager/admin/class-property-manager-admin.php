@@ -36,7 +36,10 @@ class WP_Property_Manager_Admin extends WP_Property_Manager_Base
             $taxonomy_name = $taxonomy_obj->labels->name;
             
             // Retrieve taxonomy terms
-            $terms = get_terms( $taxonomy_slug );
+            $terms = get_terms( [
+                'taxonomy' => $taxonomy_slug,
+                'hide_empty' => false
+                ]);
 
             // Display filter HTML
             echo "<select name='{$taxonomy_slug}' id='{$taxonomy_slug}' class='postform'>";

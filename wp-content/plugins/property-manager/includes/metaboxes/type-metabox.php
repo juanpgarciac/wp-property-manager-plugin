@@ -8,28 +8,33 @@ class WP_Property_Manager_Type_Metabox extends WP_Property_Manager_Metabox_Base
         $this->setID('housetype');
         $this->setTitle('House Type:');
         $this->setDescription('Select house type');
+        $this->setTaxonomy(WP_Property_Manager_Taxonomy::TAX_HOUSE_TYPE);
         parent::__construct();
 
     }
 
     public function custom_box_html( $post )
     {
-        $options = [
-            "" =>  __('Please select',self::getDomain()),
-            "custom-homes"=>__('Custom Homes',self::getDomain()),
-            "residential"=>__('Residential',self::getDomain()),
-            "single-family"=>__('Single family',self::getDomain()),
-            "duplex"=>__('Duplex',self::getDomain()),
-        ];
         $this->label();
-        ?>
-        
+        ?>        
         <div>
             <select name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>">
+                <option value=""><?=__('Please select',self::getDomain())?></option>
                 <?php
-                foreach($options as $k => $o){
-                    ?><option value="<?=$k?>"  <?=$this->getValue($post)==$k?'selected':'';?>  ><?=$o?></option><?php
-                }
+
+                    $taxonomy = get_taxonomy($this->getTaxonomy());
+                    $term_query = get_terms( array(
+                        'taxonomy' => $this->getTaxonomy(),
+                        'hide_empty' => false,
+                    ) );
+
+                    
+                    if ( ! empty( $term_query ) ) {
+                        foreach ( $term_query as $term ) {                            
+                            $identifier = $taxonomy->hierarchical?$term->term_id:$term->name;                            
+                            ?> <option value="<?=$identifier?>" <?=$this->getValue($post)==$identifier?'selected':'';?>><?=$term->name?></option><?php
+                        }
+                    }
                 ?>
             </select>
         </div>

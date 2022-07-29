@@ -8,26 +8,33 @@ class WP_Property_Manager_Construction_Status_Metabox extends WP_Property_Manage
         $this->setID('constructionstatus');
         $this->setTitle('Construction status:');
         $this->setDescription('Select status');
+        $this->setTaxonomy(WP_Property_Manager_Taxonomy::TAX_CONSTRUCTION_STATUS);
         parent::__construct();
 
     }
 
     public function custom_box_html( $post )
     {
-        $options = [
-            "" =>  __('Please select',self::getDomain()),
-            "on-construction"=>__('On construction',self::getDomain()),
-            "pending"=>__('Pending',self::getDomain()),
-        ];
-
         $this->label();
-        ?>
+        ?>        
         <div>
             <select name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>">
+                <option value=""><?=__('Please select',self::getDomain())?></option>
                 <?php
-                foreach($options as $k => $o){
-                    ?><option value="<?=$k?>"  <?=$this->getValue($post)==$k?'selected':'';?>  ><?=$o?></option><?php
-                }
+
+                    $taxonomy = get_taxonomy($this->getTaxonomy());
+                    $term_query = get_terms( array(
+                        'taxonomy' => $this->getTaxonomy(),
+                        'hide_empty' => false,
+                    ) );
+
+                    
+                    if ( ! empty( $term_query ) ) {
+                        foreach ( $term_query as $term ) {                            
+                            $identifier = $taxonomy->hierarchical?$term->term_id:$term->name;                            
+                            ?> <option value="<?=$identifier?>" <?=$this->getValue($post)==$identifier?'selected':'';?>><?=$term->name?></option><?php
+                        }
+                    }
                 ?>
             </select>
         </div>
