@@ -8,10 +8,13 @@ class WP_Property_Manager_Taxonomy extends WP_Property_Manager_Base
     
     const TAX_CONSTRUCTION_STATUS = 'property-cpt-construction-status';
 
+    const TAX_HOUSE_TYPE = 'property-cpt-house-type';
+
     const TAX_ARRAY = [
         self::TAX_LOCATION, 
         self::TAX_SALE_STATUS, 
         self::TAX_CONSTRUCTION_STATUS,
+        self::TAX_HOUSE_TYPE
     ];
 
     public static function register_location()
