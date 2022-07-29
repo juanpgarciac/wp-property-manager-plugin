@@ -3,11 +3,11 @@
 class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
 {
 
-     private $field_base = 'wp_property_manager_';
-     private $id = 'default_base_id';
-     private $title = '_default_base_title';
-     private $description = '_defaut_base_description';
-
+    private $field_base = 'wp_property_manager_';
+    private $id = 'default_base_id';
+    private $title = '_default_base_title';
+    private $description = '_defaut_base_description';
+    private $taxonomy = null;
     static private $instance;
 
     public function __construct(){
@@ -33,6 +33,18 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
 
     public function setDescription($description){
         $this->description = $description;
+    }
+
+    public function setTaxonomy($taxonomy){
+        $this->taxonomy = $taxonomy;
+    }
+
+    public function getTaxonomy(){
+        return $this->taxonomy;
+    }
+
+    public function isTaxonomy(){
+        return !is_null($this->getTaxonomy()) && !empty($this->getTaxonomy());
     }
 
     public function getTitle(){
@@ -93,6 +105,10 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
                 $this->getMetaKey(),
                 $_POST[$this->getFieldID()]
             );
+            if($this->isTaxonomy()){
+                wp_delete_object_term_relationships($post_id, $this->getTaxonomy());
+                wp_set_post_terms($post_id, $_POST[$this->getFieldID()], $this->getTaxonomy());
+            }
         }
     }
 

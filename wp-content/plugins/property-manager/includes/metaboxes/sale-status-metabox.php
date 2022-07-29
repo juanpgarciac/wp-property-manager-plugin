@@ -8,25 +8,28 @@ class WP_Property_Manager_Sale_Status_Metabox extends WP_Property_Manager_Metabo
         $this->setID('salestatus');
         $this->setTitle('Sale status:');
         $this->setDescription('Select status');
+        $this->setTaxonomy(WP_Property_Manager_Taxonomy::TAX_SALE_STATUS);
         parent::__construct();
 
     }
 
     public function custom_box_html( $post )
     {
-        $options = [
-            "" =>  __('Please select',self::getDomain()),
-            "on-sale"=>__('On sale',self::getDomain()),
-            "sold"=>__('Sold',self::getDomain()),
-        ];
         $this->label();
         ?>        
         <div>
             <select name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>">
+                <option><?=__('Please select',self::getDomain())?></option>
                 <?php
-                foreach($options as $k => $o){
-                    ?><option value="<?=$k?>"  <?=$this->getValue($post)==$k?'selected':'';?>  ><?=$o?></option><?php
-                }
+                    $term_query = get_terms( array(
+                        'taxonomy' => $this->getTaxonomy(),
+                        'hide_empty' => false,
+                    ) );
+                    if ( ! empty( $term_query ) ) {
+                        foreach ( $term_query as $term ) {
+                            ?> <option value="<?=$term->term_id?>" <?=$this->getValue($post)==$term->term_id?'selected':'';?>><?=$term->name?></option><?php
+                        }
+                    }
                 ?>
             </select>
         </div>
