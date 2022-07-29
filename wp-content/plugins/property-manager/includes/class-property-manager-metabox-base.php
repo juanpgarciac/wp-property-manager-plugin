@@ -7,7 +7,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     private $id = 'default_base_id';
     private $title = '_default_base_title';
     private $description = '_defaut_base_description';
-    private $taxonomy = null;
+
     static private $instance;
 
     public function __construct(){
@@ -35,17 +35,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         $this->description = $description;
     }
 
-    public function setTaxonomy($taxonomy){
-        $this->taxonomy = $taxonomy;
-    }
 
-    public function getTaxonomy(){
-        return $this->taxonomy;
-    }
-
-    public function isTaxonomy(){
-        return !is_null($this->getTaxonomy()) && !empty($this->getTaxonomy());
-    }
 
     public function getTitle(){
         return $this->title;
@@ -105,6 +95,34 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
                 $this->getMetaKey(),
                 $_POST[$this->getFieldID()]
             );
+        }
+    }
+
+}
+
+class WP_Property_Manager_Metabox_Taxonomy_Base extends WP_Property_Manager_Metabox_Base
+{
+    private $taxonomy = null;
+
+    public function setTaxonomy($taxonomy){
+        $this->taxonomy = $taxonomy;
+    }
+
+    public function getTaxonomy(){
+        return $this->taxonomy;
+    }
+
+    public function isTaxonomy(){
+        return !is_null($this->getTaxonomy()) && !empty($this->getTaxonomy());
+    }
+
+    public function save_postdata( $post_id ) {
+        if ( array_key_exists( $this->getFieldID(), $_POST ) ) {
+            update_post_meta(
+                $post_id,
+                $this->getMetaKey(),
+                $_POST[$this->getFieldID()]
+            );
             if($this->isTaxonomy()){
                 wp_delete_object_term_relationships($post_id, $this->getTaxonomy());
                 wp_set_post_terms($post_id, $_POST[$this->getFieldID()], $this->getTaxonomy());
@@ -112,4 +130,31 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         }
     }
 
+    public function custom_box_html( $post )
+    {
+        $this->label();
+        ?>        
+        <div>
+            <select name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>">
+                <option value=""><?=__('Please select',self::getDomain())?></option>
+                <?php
+
+                    $taxonomy = get_taxonomy($this->getTaxonomy());
+                    $term_query = get_terms( array(
+                        'taxonomy' => $this->getTaxonomy(),
+                        'hide_empty' => false,
+                    ) );
+
+                    
+                    if ( ! empty( $term_query ) ) {
+                        foreach ( $term_query as $term ) {                            
+                            $identifier = $taxonomy->hierarchical?$term->term_id:$term->name;                            
+                            ?> <option value="<?=$identifier?>" <?=$this->getValue($post)==$identifier?'selected':'';?>><?=$term->name?></option><?php
+                        }
+                    }
+                ?>
+            </select>
+        </div>
+        <?php
+    }
 }
