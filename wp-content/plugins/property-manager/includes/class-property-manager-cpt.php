@@ -14,7 +14,7 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
             'parent_item_colon'     => __( 'Parent Property:', WP_PM_DOMAIN ),
             'all_items'             => __( 'All Properties', WP_PM_DOMAIN ),
             'add_new_item'          => __( 'Add New Property', WP_PM_DOMAIN ),
-            'add_new'               => __( 'Add New', WP_PM_DOMAIN ),
+            'add_new'               => __( 'Add New Property', WP_PM_DOMAIN ),
             'new_item'              => __( 'New Property', WP_PM_DOMAIN ),
             'edit_item'             => __( 'Edit Property', WP_PM_DOMAIN ),
             'update_item'           => __( 'Update Property', WP_PM_DOMAIN ),

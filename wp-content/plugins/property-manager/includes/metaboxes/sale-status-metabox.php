@@ -21,13 +21,18 @@ class WP_Property_Manager_Sale_Status_Metabox extends WP_Property_Manager_Metabo
             <select name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>">
                 <option><?=__('Please select',self::getDomain())?></option>
                 <?php
+
+                    $taxonomy = get_taxonomy($this->getTaxonomy());
                     $term_query = get_terms( array(
                         'taxonomy' => $this->getTaxonomy(),
                         'hide_empty' => false,
                     ) );
+
+                    
                     if ( ! empty( $term_query ) ) {
-                        foreach ( $term_query as $term ) {
-                            ?> <option value="<?=$term->term_id?>" <?=$this->getValue($post)==$term->term_id?'selected':'';?>><?=$term->name?></option><?php
+                        foreach ( $term_query as $term ) {                            
+                            $identifier = $taxonomy->hierarchical?$term->term_id:$term->name;                            
+                            ?> <option value="<?=$identifier?>" <?=$this->getValue($post)==$identifier?'selected':'';?>><?=$term->name?></option><?php
                         }
                     }
                 ?>
