@@ -67,7 +67,7 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
             WP_Property_Manager_CreationDate_Metabox::class,
             WP_Property_Manager_Address_Metabox::class,        
             WP_Property_Manager_Coordinates_Metabox::class,
-            WP_Property_Manager_Beds_Metabox::class,
+            WP_Property_Manager_Bedrooms_Metabox::class,
             WP_Property_Manager_Bath_Metabox::class,    
             WP_Property_Manager_Garage_Metabox::class,
             WP_Property_Manager_Price_Metabox::class,        

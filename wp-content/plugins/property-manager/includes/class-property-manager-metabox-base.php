@@ -35,13 +35,11 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
         $this->description = $description;
     }
 
-
-
     public function getTitle(){
-        return $this->title;
+        return __($this->title,self::getDomain());
     }
     public function getDescription(){
-        return $this->description;
+        return __($this->description,self::getDomain());
     }
 
     public function getID(){

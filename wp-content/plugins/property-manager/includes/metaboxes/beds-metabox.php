@@ -1,13 +1,13 @@
 <?php
 
-class WP_Property_Manager_Beds_Metabox extends WP_Property_Manager_Metabox_Base
+class WP_Property_Manager_Bedrooms_Metabox extends WP_Property_Manager_Metabox_Base
 {
     
     public function __construct()
     {
-        $this->setID('beds');
-        $this->setTitle('Beds Qty:');
-        $this->setDescription('How many beds?');
+        $this->setID('bedroom');
+        $this->setTitle('Bedrooms Qty:');
+        $this->setDescription('How many bedrooms does the property have?');
         parent::__construct();
 
     }
