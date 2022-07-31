@@ -44,7 +44,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
     public static function location_selector()
     {
         $location = isset($_GET['property-manager-location-select']) ? $_GET['property-manager-location-select'] : null;
-        $label = '<label for="property-manager-location-select">Location</label>';
+        $label = '<label for="property-manager-location-select">Location</label>&nbsp;';
         $input = '<select name="property-manager-location-select" id="property-manager-location-select">';
         $input .= '<option value="">'.__('Any',self::getDomain()).'</option>';
         
@@ -69,7 +69,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
     {
         $selector = 'property-manager-construction-select';
         $location = isset($_GET[$selector]) ? $_GET[$selector] : null;
-        $label = '<label for="'.$selector.'">Construction status</label>';
+        $label = '<label for="'.$selector.'">Construction status</label>&nbsp;';
         $input = '<select name="'.$selector.'" id="'.$selector.'">';
         $input .= '<option value="">'.__('Any',self::getDomain()).'</option>';
                 $taxonomy = get_taxonomy(WP_Property_Manager_Taxonomy::TAX_CONSTRUCTION_STATUS);
@@ -98,7 +98,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
             '1000|0' => '+1 Million'];
         $selector = 'property-manager-price-select';
         $price = isset($_GET[$selector]) ? $_GET[$selector] : null;
-        $selectorlabel = '<label for="'.$selector.'">Price range</label>';
+        $selectorlabel = '<label for="'.$selector.'">Price range</label>&nbsp;';
         $input = '<select name="'.$selector.'" id="'.$selector.'">';
         $input .= '<option value="">'.__('Any',self::getDomain()).'</option>';        
         foreach ( $pricerange as $range => $label) {                            

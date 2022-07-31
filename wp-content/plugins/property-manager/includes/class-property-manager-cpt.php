@@ -86,7 +86,7 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
             }
             $result .= '" style="max-width:200px;height:auto;"></div>';
             $result .= '<div class="property-title"><h3>' . get_the_title() . '</h3></div>';
-            $result .= '<div class="property-price"><p>Price: $' . $pricemeta->getValue($post) . '</p></div>'; 
+            $result .= '<div class="property-price"><p>Price: $' . number_format($pricemeta->getValue($post)) . '</p></div>'; 
             $result .= '<div class="property-content"><p>' . get_the_content() . '</p></div>'; 
             $result .= '</div>';
 
