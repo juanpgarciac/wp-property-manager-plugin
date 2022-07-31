@@ -56,8 +56,19 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
     $initClasses = [
         WP_Property_Manager_CPT::class,
         WP_Property_Manager_Taxonomy::class,
-        /* *
-        /* */
+        WP_Property_Manager_CreationDate_Metabox::class,
+        WP_Property_Manager_Address_Metabox::class,        
+        WP_Property_Manager_Coordinates_Metabox::class,
+        WP_Property_Manager_Bedrooms_Metabox::class,
+        WP_Property_Manager_Bath_Metabox::class,    
+        WP_Property_Manager_Garage_Metabox::class,
+        WP_Property_Manager_Price_Metabox::class,        
+        WP_Property_Manager_Surface_Metabox::class,        
+        WP_Property_Manager_Construction_Status_Metabox::class,
+        WP_Property_Manager_Sale_Status_Metabox::class,
+        WP_Property_Manager_Type_Metabox::class,        
+        WP_Property_Manager_Blueprint_Metabox::class,
+        WP_Property_Manager_Gallery_Metabox::class
 
     ];
 
@@ -65,19 +76,7 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
 
     if(is_admin()){
         $initAdminClasses = [
-            WP_Property_Manager_CreationDate_Metabox::class,
-            WP_Property_Manager_Address_Metabox::class,        
-            WP_Property_Manager_Coordinates_Metabox::class,
-            WP_Property_Manager_Bedrooms_Metabox::class,
-            WP_Property_Manager_Bath_Metabox::class,    
-            WP_Property_Manager_Garage_Metabox::class,
-            WP_Property_Manager_Price_Metabox::class,        
-            WP_Property_Manager_Surface_Metabox::class,        
-            WP_Property_Manager_Construction_Status_Metabox::class,
-            WP_Property_Manager_Sale_Status_Metabox::class,
-            WP_Property_Manager_Type_Metabox::class,        
-            WP_Property_Manager_Blueprint_Metabox::class,
-            WP_Property_Manager_Gallery_Metabox::class
+
         ];
         WP_Property_Manager_Admin::init($initAdminClasses);
     }

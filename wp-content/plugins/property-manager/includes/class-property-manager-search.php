@@ -32,11 +32,12 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         $construction_selector = self::construction_selector();
 
         //print price range selector 
+        $price_selector = self::price_selector();
 
         //submit button
         $button = '<button type="submit">Search</button>';
 
-        return $form.$title.$location_selector.'<br>'.$construction_selector.'<br>'.$button.'</form>';
+        return $form.$title.$location_selector.'<br>'.$construction_selector.'<br>'.$price_selector.'<br>'.$button.'</form>';
     }
 
 
@@ -87,6 +88,33 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         return $label.$input;
     }
 
+    public static function price_selector()
+    {   
+        $pricerange = [
+            '0|250' => 'Under 250k',
+            '250|350'=> 'calc',
+            '350|450'=> 'calc',
+            '750|1000'=> 'calc',
+            '1000|0' => '+1 Million'];
+        $selector = 'property-manager-price-select';
+        $price = isset($_GET[$selector]) ? $_GET[$selector] : null;
+        $selectorlabel = '<label for="'.$selector.'">Price range</label>';
+        $input = '<select name="'.$selector.'" id="'.$selector.'">';
+        $input .= '<option value="">'.__('Any',self::getDomain()).'</option>';        
+        foreach ( $pricerange as $range => $label) {                            
+            list($min,$max) = explode('|',$range);            
+            if($label == 'calc'){
+                $label = "{$min}k - ".($max < 1000 ? $max - 1 . 'k' : '1 Million' );
+
+            }
+            $identifier = $min * 1000 ."|".$max * 1000;
+            $input .= '<option value="'.$identifier.'" '.($price==$identifier?'selected':'').'>'.$label.'</option>';
+        }
+        $input .= '</select>';
+
+        return $selectorlabel.$input;
+    }
+
     public static function property_item()
     {
 
@@ -98,6 +126,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         
         $location = isset($_GET['property-manager-location-select']) ? $_GET['property-manager-location-select'] : null;
         $construction = isset($_GET['property-manager-construction-select']) ? $_GET['property-manager-construction-select'] : null;
+        $price = isset($_GET['property-manager-price-select']) ? $_GET['property-manager-price-select'] : null;
         $tax_query = [];
         if(!empty($location)){            
             $location_query = array(
@@ -114,36 +143,46 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
             );
             $tax_query[] = $construction_query;
         }
+
+        $meta_query = [];
+        if(!empty($price)){      
+            
+            $pricemetabox = new WP_Property_Manager_Price_Metabox();
+            list($min,$max) = array_map('intval',explode('|',$price));
+            if($max > 0){
+                $value =  [$min, $max < 1000000 ? $max - 1 : $max];
+                $operator = 'between';
+            }else{
+                $value = $min;
+                $operator = '>';
+            }
+            $price_query = array(
+                'key' => $pricemetabox->getMetaKey(),
+                'value'    =>  $value,
+                'type'     => 'numeric',
+                'compare'  => $operator
+            );
+            $meta_query[] = $price_query;
+        }
             
         $args = array(
                         'post_type'      => self::getCPT(),
                         'posts_per_page' => '10',
                         'publish_status' => 'published',
                         'tax_query' => $tax_query,
+                        'meta_query' => $meta_query,
                     );
     
         //dd($args);
         $query = new WP_Query($args);
 
         $result = '';
+        $i = 0;
         if($query->have_posts()) :
     
             while($query->have_posts()) :
-    
-                $query->the_post() ;
-                $id = get_the_ID();
-                $banner_img = get_post_meta($id, '_wp_property_manager_gallery', true);	
-                $banner_img = explode(',', $banner_img);
-                //dd($banner_img);
-                $result .= '<div class="movie-item">';
-                if(!empty($banner_img)) {
-                    $result .= "<div><img src=". wp_get_attachment_url( $banner_img[0] )."></div>";
-                }
-                
-                $result .= '<div class="movie-name"><h3>' . get_the_title() . '</h3></div>';
-                $result .= '<div class="movie-desc"><p>' . get_the_content() . '</p></div>'; 
-                $result .= '</div>';
-    
+                $query->the_post();
+                $result .= WP_Property_Manager_CPT::show_list_item();    
             endwhile;
     
             wp_reset_postdata();
@@ -153,25 +192,3 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         return self::search_form().$result;            
     }
 }
-
-/* *
-
-// Use below code to show metabox values from anywhere
-$id = get_the_ID();
-	$banner_img = get_post_meta($id, 'post_banner_img', true);	
-	$banner_img = explode(',', $banner_img);
-	if(!empty($banner_img)) {
-		?>
-		<table class="plugin-detail-tabl" width="100%" cellspacing="0" cellpadding="0">
-			<tbody>
-				<?php  foreach ($banner_img as $attachment_id) { ?>
-					<tr>
-						<td><img src="<?php echo wp_get_attachment_url( $attachment_id );?>"></td>
-					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
-		<?php
-	}
-
-*/

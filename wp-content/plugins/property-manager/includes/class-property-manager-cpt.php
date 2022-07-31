@@ -62,4 +62,37 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
     }
 
 
+    public function getID(){
+        return get_the_ID();
+    }
+
+
+    public static function show_list_item()
+    {
+        $result = '';
+        $post = get_post();
+        if(!empty( $post )){
+
+            $pricemeta = new WP_Property_Manager_Price_Metabox(); 
+            $gallery = new WP_Property_Manager_Gallery_Metabox();
+            $banner_img = $gallery->getValue($post,'');
+            $banner_img = explode(',', $banner_img) ;
+            $result = '<div class="">';
+            $result .= '<div class="property-image"><img src="';
+            if(!empty($banner_img) && !empty($banner_img[0])) {
+                $result .= wp_get_attachment_url( $banner_img[0] );
+            }else{
+                $result .= self::getPublicUrl().'assets/noimage.png';                
+            }
+            $result .= '" style="max-width:200px;height:auto;"></div>';
+            $result .= '<div class="property-title"><h3>' . get_the_title() . '</h3></div>';
+            $result .= '<div class="property-price"><p>Price: $' . $pricemeta->getValue($post) . '</p></div>'; 
+            $result .= '<div class="property-content"><p>' . get_the_content() . '</p></div>'; 
+            $result .= '</div>';
+
+        }
+        return $result;
+    }
+
+
 }
