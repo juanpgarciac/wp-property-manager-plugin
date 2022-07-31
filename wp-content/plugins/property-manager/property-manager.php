@@ -41,8 +41,9 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
     $fileGroups = [
 
         plugin_dir_path( __FILE__ )."includes/*.php",
-        plugin_dir_path( __FILE__ )."admin/*.php",
-        plugin_dir_path( __FILE__ )."includes/metaboxes/*.php"
+        plugin_dir_path( __FILE__ )."admin/*.php",        
+        plugin_dir_path( __FILE__ )."includes/metaboxes/*.php",
+        plugin_dir_path( __FILE__ )."public/*.php",
     ];
 
     foreach ($fileGroups as $currDirectory) {
@@ -79,10 +80,12 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
             WP_Property_Manager_Gallery_Metabox::class
         ];
         WP_Property_Manager_Admin::init($initAdminClasses);
-    }else{
-        
     }
-    
+
+    $initPublicClass = [
+        WP_Property_Manager_Search::class
+    ];
+    WP_Property_Manager_Public::init($initPublicClass);  
 
 }
 
