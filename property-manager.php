@@ -72,8 +72,8 @@ if (!class_exists('WP_Property_Manager_Base')) {
             }
         }
     }
-    
-    
+
+
     $initClasses = [
         WP_Property_Manager_CPT::class,
         WP_Property_Manager_Taxonomy::class,
@@ -94,8 +94,8 @@ if (!class_exists('WP_Property_Manager_Base')) {
     ];
 
     WP_Property_Manager::init($initClasses);
-    
-    if (is_admin()) {        
+
+    if (is_admin()) {
         $initAdminClasses = [ ];
         WP_Property_Manager_Admin::init($initAdminClasses);
     }
@@ -106,13 +106,13 @@ if (!class_exists('WP_Property_Manager_Base')) {
 
 
 
-if(!function_exists('dd')){
+if (!function_exists('dd')) {
     /**
      * "Dump and Die"
-     * Print the arguments sent then die. 
+     * Print the arguments sent then die.
      * For debuggin purposes only
      * @param mixed ...$args
-     * 
+     *
      * @return void
      */
     function dd(...$args)
@@ -124,4 +124,3 @@ if(!function_exists('dd')){
         die();
     }
 }
-

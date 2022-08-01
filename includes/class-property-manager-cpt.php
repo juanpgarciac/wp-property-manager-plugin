@@ -2,7 +2,7 @@
 
 /**
  * Class that handles the Property Manager Custom Post Type registration and visuals
- * 
+ *
  */
 class WP_Property_Manager_CPT extends WP_Property_Manager_Base
 {
@@ -74,7 +74,7 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
     }
 
     /**
-     * Render a single property from the result list 
+     * Render a single property from the result list
      * @return string
      */
     public static function show_list_item()
@@ -122,7 +122,7 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
     /**
      * This filters allow to override the single template from plugin
      * @param mixed $template
-     * 
+     *
      * @return string
      */
     public static function single_template_override($template)

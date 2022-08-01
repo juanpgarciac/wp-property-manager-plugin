@@ -31,7 +31,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     }
 
     /**
-     * generates an Metabox instance 
+     * generates an Metabox instance
      * @return WP_Property_Manager_Metabox_Base
      */
     public static function init()
@@ -49,7 +49,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     /**
      * sets the metabox ID
      * @param mixed $id
-     * 
+     *
      * @return void
      */
     public function setID($id)
@@ -60,7 +60,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     /**
      * Sets the metabox title label
      * @param mixed $title
-     * 
+     *
      * @return void
      */
     public function setTitle($title)
@@ -71,7 +71,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     /**
      * Sets the metabox description label
      * @param mixed $description
-     * 
+     *
      * @return void
      */
     public function setDescription($description)
@@ -108,11 +108,11 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
 
 
     /**
-     * Gets the metabox value from the post_meta 
-     * If no post object is sent, it will use get_post() WP function to retrieve it 
+     * Gets the metabox value from the post_meta
+     * If no post object is sent, it will use get_post() WP function to retrieve it
      * @param null $post
      * @param null $default
-     * 
+     *
      * @return mixed
      */
     public function getValue($post = null, $default = null)
@@ -157,7 +157,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     /**
      * Renders HTML label for the metabox
      * @param bool $print
-     * 
+     *
      * @return void
      */
     public function label($print = true)
@@ -170,7 +170,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     /**
      * Renders HTML input for the metabox
      * @param mixed $post
-     * 
+     *
      * @return void
      */
     public function custom_box_html($post)
@@ -183,7 +183,7 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     /**
      * Handles the meta value saving/update
      * @param mixed $post_id
-     * 
+     *
      * @return void
      */
     public function save_postdata($post_id)
@@ -208,7 +208,7 @@ class WP_Property_Manager_Metabox_Taxonomy_Base extends WP_Property_Manager_Meta
     /**
      * Sets the metabox taxonomy
      * @param mixed $taxonomy
-     * 
+     *
      * @return void
      */
     public function setTaxonomy($taxonomy)
@@ -237,7 +237,7 @@ class WP_Property_Manager_Metabox_Taxonomy_Base extends WP_Property_Manager_Meta
     /**
      * Handles the meta value saving/update and the corresponding taxonomy relation
      * @param mixed $post_id
-     * 
+     *
      * @return void
      */
     public function save_postdata($post_id)
@@ -260,7 +260,7 @@ class WP_Property_Manager_Metabox_Taxonomy_Base extends WP_Property_Manager_Meta
     /**
      * Renders HTML input for the metabox with taxonomy selection helper
      * @param mixed $post
-     * 
+     *
      * @return void
      */
     public function custom_box_html($post)
