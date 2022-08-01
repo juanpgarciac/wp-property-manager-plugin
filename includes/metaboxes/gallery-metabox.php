@@ -23,7 +23,6 @@ class WP_Property_Manager_Gallery_Metabox extends WP_Property_Manager_Metabox_Ba
         $banner_img = get_post_meta($post->ID, $this->getMetaKey(), true); ?>
         <table cellspacing="10" cellpadding="10">
             <tr>
-                <td>Banner Image</td>
                 <td>
                     <?php echo $this->multi_media_uploader_field($this->getFieldID(), $banner_img); ?>
                 </td>
