@@ -59,7 +59,7 @@ if (!empty($post)) {
                     <span class="home-bath"><i class="fa-solid fa-bath"></i> <?=$baths->getValue()?> Bath</span>
                 </p>
                 <p>
-                <span class="home-garage"><i class="fa-solid fa-warehouse"></i> <?=$garage->getValue()?> Garage spots</span>
+                <span class="home-garage"><i class="fa-solid fa-warehouse"></i> <?=$garage->getValue(null,'No')?> Garage spots</span>
                     <span class="home-sqft"><i class="fa-solid fa-globe"></i> <?=number_format($sqfoot->getValue())?> sqft</span>                    
                 </p>
                 <p>                    
