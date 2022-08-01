@@ -46,7 +46,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
     {
         $location = isset($_GET['property-manager-location-select']) ? $_GET['property-manager-location-select'] : null;
         $label = '<label for="property-manager-location-select">Location</label>&nbsp;';
-        $input = '<select name="property-manager-location-select" id="property-manager-location-select">';
+        $input = '<select name="property-manager-location-select" id="property-manager-location-select" style="width:60%">';
         $input .= '<option value="">'.__('Any', self::getDomain()).'</option>';
         $taxonomy = get_taxonomy(WP_Property_Manager_Taxonomy::TAX_LOCATION);
         $term_query = get_terms(array(
@@ -173,7 +173,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         //dd($args);
         $query = new WP_Query($args);
 
-        $result = '';
+        $result = '<div class="property-manager-search-result">';
         $i = 0;
         if ($query->have_posts()) :
 
@@ -185,7 +185,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
             wp_reset_postdata();
 
         endif;
-
+        $resul .= '</div>';
         return self::search_form().$result;
     }
 }
