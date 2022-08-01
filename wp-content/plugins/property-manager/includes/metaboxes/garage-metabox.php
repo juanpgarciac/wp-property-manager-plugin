@@ -7,7 +7,7 @@ class WP_Property_Manager_Garage_Metabox extends WP_Property_Manager_Metabox_Bas
     {
         $this->setID('garage');
         $this->setTitle('Garage:');
-        $this->setDescription('Does the property have a garage?');
+        $this->setDescription('How many cars fit on the property garage?');
         parent::__construct();
 
     }
@@ -15,11 +15,8 @@ class WP_Property_Manager_Garage_Metabox extends WP_Property_Manager_Metabox_Bas
     public function custom_box_html( $post )
     {
         $this->label()
-        ?>
-        <div>
-            <input type="radio" name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>-yes" value="yes" <?=$this->getValue($post)=='yes'?'checked':'';?>  />Yes &nbsp;
-            <input type="radio" name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>-no" value="no"  <?=$this->getValue($post,'no')=='no'?'checked':'';?>  />No
-        </div>
+        ?>        
+        <div><input type="number" name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>" value="<?=$this->getValue($post,0);?>" /></div>
         <?php
     }
 
