@@ -4,9 +4,9 @@ get_header();
 
 $result = '';
 $post = get_post();
-if(!empty( $post )){
-/* */
-    $pricemeta = new WP_Property_Manager_Price_Metabox(); 
+if (!empty($post)) {
+    /* */
+    $pricemeta = new WP_Property_Manager_Price_Metabox();
     $type = new WP_Property_Manager_Type_Metabox();
     $gallery = new WP_Property_Manager_Gallery_Metabox();
     $blueprint = new WP_Property_Manager_Blueprint_Metabox();
@@ -20,11 +20,10 @@ if(!empty( $post )){
     $salestatus = new WP_Property_Manager_Sale_Status_Metabox();
     $constructionstatus = new WP_Property_Manager_Construction_Status_Metabox();
 
-    $location  = get_the_terms(get_the_ID(),WP_Property_Manager_Taxonomy::TAX_LOCATION);
+    $location  = get_the_terms(get_the_ID(), WP_Property_Manager_Taxonomy::TAX_LOCATION);
     $coordinates = unserialize($coordinates->getValue());
 
-    //dd($address->getValue(),$coordinates->getValue(),$garage->getValue(),$salestatus->getValue(),$constructionstatus->getValue(),$location);
-?>  
+    //dd($address->getValue(),$coordinates->getValue(),$garage->getValue(),$salestatus->getValue(),$constructionstatus->getValue(),$location);?>  
 <style>
     .property-container{
         width:80%;
@@ -37,7 +36,7 @@ if(!empty( $post )){
 
 <div class="property-container">
     <h2><?=get_the_title()?></h2>
-    <h4>Located at:  <?=implode(', ',array_column($location, 'name'));?></h4>
+    <h4>Located at:  <?=implode(', ', array_column($location, 'name')); ?></h4>
     <br>
     <section>
         <h3>Specs</h3>
@@ -78,38 +77,37 @@ if(!empty( $post )){
 
 <?php
 
-    $banner_img = $gallery->getValue($post,'');
-    $banner_img = !empty($banner_img) ? array_map('wp_get_attachment_url',explode(',', $banner_img)) : false ;
-    if(!$banner_img ) {
+    $banner_img = $gallery->getValue($post, '');
+    $banner_img = !empty($banner_img) ? array_map('wp_get_attachment_url', explode(',', $banner_img)) : false ;
+    if (!$banner_img) {
         $banner_img = [WP_Property_Manager_Base::getPublicUrl().'assets/noimage.png'];
-    }
-    ?>
+    } ?>
     <section>
         <h3>Gallery</h3>    
         <?php
-        foreach($banner_img as $img){?>
+        foreach ($banner_img as $img) {?>
             <a href="<?=$img?>" target="_blank">
                 <img loading="lazy" class="home lazy" data-src="<?=$img?>" src="<?=$img?>" style="max-width:300px;height:auto;">
             </a>   
         <?php
-        }?>
+        } ?>
     </section>
 <?php
 
-    $banner_img = $blueprint->getValue($post,'');
-    $banner_img = !empty($banner_img) ? array_map('wp_get_attachment_url',explode(',', $banner_img)) : false ;
-    if(!$banner_img ) {
+    $banner_img = $blueprint->getValue($post, '');
+    $banner_img = !empty($banner_img) ? array_map('wp_get_attachment_url', explode(',', $banner_img)) : false ;
+    if (!$banner_img) {
         $banner_img = [WP_Property_Manager_Base::getPublicUrl().'assets/noimage.png'];
-    }?>
+    } ?>
     <section>
         <h3>Blueprint</h3>    
         <?php
-        foreach($banner_img as $img){?>
+        foreach ($banner_img as $img) {?>
             <a href="<?=$img?>" target="_blank">
                 <img loading="lazy" class="home lazy" data-src="<?=$img?>" src="<?=$img?>" style="max-width:300px;height:auto;">
             </a>   
         <?php
-        }?>
+        } ?>
     </section>
 </div>
 <?php

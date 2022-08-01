@@ -2,7 +2,6 @@
 
 class WP_Property_Manager_Surface_Metabox extends WP_Property_Manager_Metabox_Base
 {
-    
     public function __construct()
     {
         $this->setID('surface');
@@ -10,5 +9,4 @@ class WP_Property_Manager_Surface_Metabox extends WP_Property_Manager_Metabox_Ba
         $this->setDescription('Property surface (sq foots)');
         parent::__construct();
     }
-
 }

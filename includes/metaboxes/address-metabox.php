@@ -2,7 +2,6 @@
 
 class WP_Property_Manager_Address_Metabox extends WP_Property_Manager_Metabox_Base
 {
-    
     public function __construct()
     {
         $this->setID('address');
@@ -11,10 +10,9 @@ class WP_Property_Manager_Address_Metabox extends WP_Property_Manager_Metabox_Ba
         parent::__construct();
     }
 
-    public function custom_box_html( $post )
+    public function custom_box_html($post)
     {
-        $this->label();
-        ?>
+        $this->label(); ?>
         <div>
             <textarea name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>" cols="100"><?=$this->getValue($post)?></textarea>
         </div>

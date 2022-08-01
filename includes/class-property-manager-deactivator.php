@@ -2,8 +2,7 @@
 
 class WP_Property_Manager_Deactivator
 {
-	public static function deactivate() 
+    public static function deactivate()
     {
-
-	}
+    }
 }

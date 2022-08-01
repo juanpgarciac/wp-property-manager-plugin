@@ -2,7 +2,6 @@
 
 class WP_Property_Manager_Bath_Metabox extends WP_Property_Manager_Metabox_Base
 {
-    
     public function __construct()
     {
         $this->setID('bath');
@@ -11,12 +10,11 @@ class WP_Property_Manager_Bath_Metabox extends WP_Property_Manager_Metabox_Base
         parent::__construct();
     }
 
-    public function custom_box_html( $post )
+    public function custom_box_html($post)
     {
-        $this->label();
-        ?>
+        $this->label(); ?>
         <div>
-            <input type="number" name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>" value="<?=$this->getValue($post,0);?>" />
+            <input type="number" name="<?=$this->getFieldID()?>" id="<?=$this->getFieldID()?>" value="<?=$this->getValue($post, 0); ?>" />
         </div>
         <?php
     }
