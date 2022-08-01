@@ -20,7 +20,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
     public static function search_form()
     {
         //form 
-        $form = '<form action"" method="GET">';
+        $form = '<form action="" method="GET" >';
 
         //header
         $title = '<h3>'.__('Search',self::getDomain()).'</h3>';
@@ -47,8 +47,6 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         $label = '<label for="property-manager-location-select">Location</label>&nbsp;';
         $input = '<select name="property-manager-location-select" id="property-manager-location-select">';
         $input .= '<option value="">'.__('Any',self::getDomain()).'</option>';
-        
-
                 $taxonomy = get_taxonomy(WP_Property_Manager_Taxonomy::TAX_LOCATION);
                 $term_query = get_terms( array(
                     'taxonomy' => WP_Property_Manager_Taxonomy::TAX_LOCATION,

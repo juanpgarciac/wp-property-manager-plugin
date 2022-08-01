@@ -98,8 +98,8 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
                         <b class="home-title">' . get_the_title() . '</b>
                         <b class="home-price"><i class="fa-solid fa-dollar-sign"></i> ' . number_format($pricemeta->getValue($post)) . '</b>
                     </p>
-                    <p class="home-type"><i class="fa-solid fa-house"></i> '.$type->getValue($post).'</p>
                     <p class="home-info-details">
+                        <span class="home-type"><i class="fa-solid fa-house"></i> '.$type->getValue($post).'</span>
                         <span class="home-bed"><i class="fa-solid fa-bed"></i> '.$bedrooms->getValue($post).' Bedrooms</span>
                         <span class="home-bath"><i class="fa-solid fa-bath"></i> '.$baths->getValue($post).' Bath</span>
                         <span class="home-sqft"><i class="fa-solid fa-globe"></i> '.number_format($sqfoot->getValue($post)).' sqft</span>
@@ -114,7 +114,7 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
                         <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media=https://www.morgantaylorhomes.com/wp-content/uploads/2021/07/20210708145711683271000000-o-384x256.jpg&amp;url=https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" target="_blank"><i class="icon-pinterest"></i></a>
                     </section>
                     **/ 
-            $result .= '</div></section>';
+            $result .= '</div></section><br>';
 
 
 
