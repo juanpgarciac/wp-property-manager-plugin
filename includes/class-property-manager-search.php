@@ -93,6 +93,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
             '0|250' => 'Under 250k',
             '250|350'=> 'calc',
             '350|450'=> 'calc',
+            '450|750'=> 'calc',
             '750|1000'=> 'calc',
             '1000|0' => '+1 Million'];
         $selector = 'property-manager-price-select';
