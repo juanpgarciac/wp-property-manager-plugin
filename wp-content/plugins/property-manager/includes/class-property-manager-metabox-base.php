@@ -50,8 +50,9 @@ class WP_Property_Manager_Metabox_Base extends WP_Property_Manager_Base
     }
 
 
-    public function getValue($post,$default = null)
-    {
+    public function getValue($post = null,$default = null)
+    {   
+        $post = $post ? $post : get_post();
         $value = get_post_meta( $post->ID, $this->getMetaKey(), true );
         return $value?$value:$default;
     }

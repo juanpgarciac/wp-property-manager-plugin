@@ -46,10 +46,16 @@ if ( !class_exists( 'WP_Property_Manager_Base' ) ) {
         plugin_dir_path( __FILE__ )."public/*.php",
     ];
 
+    $ignoreFiles = [
+        'single-property-manager-cpt.php'
+    ];
+
     foreach ($fileGroups as $currDirectory) {
         foreach (glob($currDirectory, GLOB_NOCHECK) as $filename) {
-            if(file_exists($filename))
+            if(file_exists($filename) && !in_array(basename($filename),$ignoreFiles)){
                 require $filename;
+            }
+                
         }
     }
 

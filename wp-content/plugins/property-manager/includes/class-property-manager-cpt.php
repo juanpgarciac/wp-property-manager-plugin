@@ -59,6 +59,8 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
     public static function init()
     {
         add_action( 'init', [self::class,'register_cpt'], 0 );
+        //add_filter('the_content', [self::class,'show_item_content'], 0 );
+        add_filter('single_template', [self::class,'single_template_override'], 0);
     }
 
 
@@ -87,7 +89,7 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
                 $banner_img = self::getPublicUrl().'assets/noimage.png';                
             }
             
-            $result .= '</i><section id="home-'.get_the_ID().'" class="home-listing-item col-lg-6" style="position: relative;">
+            $result .= '<section id="home-'.get_the_ID().'" class="home-listing-item col-lg-6" style="position: relative;">
                 <figure>
                     <a href="'.$banner_img.'">
                         <img loading="lazy" class="home lazy" data-src="'.$banner_img.'" src="'.$banner_img.'" style="max-width:300px;height:auto;">
@@ -95,14 +97,14 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
                 </figure>
                 <div class="home-info">
                     <p class="title-and-price">
-                        <b class="home-title">' . get_the_title() . '</b>
-                        <b class="home-price"><i class="fa-solid fa-dollar-sign"></i> ' . number_format($pricemeta->getValue($post)) . '</b>
+                        <b class="home-title"><a href="'.get_post_permalink().'">' . get_the_title() . '</a></b>
+                        <br>Price: <b class="home-price"><i class="fa-solid fa-dollar-sign"></i> ' . number_format($pricemeta->getValue()) . '</b>
                     </p>
                     <p class="home-info-details">
-                        <span class="home-type"><i class="fa-solid fa-house"></i> '.$type->getValue($post).'</span>
-                        <span class="home-bed"><i class="fa-solid fa-bed"></i> '.$bedrooms->getValue($post).' Bedrooms</span>
-                        <span class="home-bath"><i class="fa-solid fa-bath"></i> '.$baths->getValue($post).' Bath</span>
-                        <span class="home-sqft"><i class="fa-solid fa-globe"></i> '.number_format($sqfoot->getValue($post)).' sqft</span>
+                        <span class="home-type"><i class="fa-solid fa-house"></i> '.$type->getValue().'</span>
+                        <span class="home-bed"><i class="fa-solid fa-bed"></i> '.$bedrooms->getValue().' Bedrooms</span>
+                        <span class="home-bath"><i class="fa-solid fa-bath"></i> '.$baths->getValue().' Bath</span>
+                        <span class="home-sqft"><i class="fa-solid fa-globe"></i> '.number_format($sqfoot->getValue()).' sqft</span>
                     </p>';
                     /* *<div class="home-actions">
                         <a class="home-details" href="https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" title="Get details" target="_blank"><i class="icon-info"></i><span>Get Details</span></a>
@@ -121,6 +123,27 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
 
         }
         return $result;
+    }
+
+
+    public static function show_item_content($content)
+    {
+        if (is_singular(self::getCPT()) && in_the_loop()) {
+            // change stuff
+            $content .= '<p>here we are on my custom post type</p>';
+        }
+    
+        return $content;
+    }
+
+    
+    public static function single_template_override($template)
+    {
+        //dd(self::getCPT(),get_post_type(get_queried_object_id()),$template,strpos($template,'single-'.self::getCPT().'.php'));
+        if (self::getCPT() == get_post_type(get_queried_object_id()) && strpos($template,'single-'.self::getCPT().'.php') === false) {
+            $template = self::getPublicDir() . 'single-property-manager-cpt.php';
+        }
+        return $template;
     }
 
 
