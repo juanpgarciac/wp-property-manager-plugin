@@ -72,23 +72,52 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
         $result = '';
         $post = get_post();
         if(!empty( $post )){
-
+/* */
             $pricemeta = new WP_Property_Manager_Price_Metabox(); 
+            $type = new WP_Property_Manager_Type_Metabox();
             $gallery = new WP_Property_Manager_Gallery_Metabox();
+            $bedrooms = new WP_Property_Manager_Bedrooms_Metabox();
+            $baths = new WP_Property_Manager_Bath_Metabox();
+            $sqfoot = new WP_Property_Manager_Surface_Metabox();
             $banner_img = $gallery->getValue($post,'');
             $banner_img = explode(',', $banner_img) ;
-            $result = '<div class="">';
-            $result .= '<div class="property-image"><img src="';
             if(!empty($banner_img) && !empty($banner_img[0])) {
-                $result .= wp_get_attachment_url( $banner_img[0] );
+                $banner_img = wp_get_attachment_url( $banner_img[0] );
             }else{
-                $result .= self::getPublicUrl().'assets/noimage.png';                
+                $banner_img = self::getPublicUrl().'assets/noimage.png';                
             }
-            $result .= '" style="max-width:200px;height:auto;"></div>';
-            $result .= '<div class="property-title"><h3>' . get_the_title() . '</h3></div>';
-            $result .= '<div class="property-price"><p>Price: $' . number_format($pricemeta->getValue($post)) . '</p></div>'; 
-            $result .= '<div class="property-content"><p>' . get_the_content() . '</p></div>'; 
-            $result .= '</div>';
+            
+            $result .= '</i><section id="home-'.get_the_ID().'" class="home-listing-item col-lg-6" style="position: relative;">
+                <figure>
+                    <a href="'.$banner_img.'">
+                        <img loading="lazy" class="home lazy" data-src="'.$banner_img.'" src="'.$banner_img.'" style="max-width:300px;height:auto;">
+                    </a>
+                </figure>
+                <div class="home-info">
+                    <p class="title-and-price">
+                        <b class="home-title">' . get_the_title() . '</b>
+                        <b class="home-price"><i class="fa-solid fa-dollar-sign"></i> ' . number_format($pricemeta->getValue($post)) . '</b>
+                    </p>
+                    <p class="home-type"><i class="fa-solid fa-house"></i> '.$type->getValue($post).'</p>
+                    <p class="home-info-details">
+                        <span class="home-bed"><i class="fa-solid fa-bed"></i> '.$bedrooms->getValue($post).' Bedrooms</span>
+                        <span class="home-bath"><i class="fa-solid fa-bath"></i> '.$baths->getValue($post).' Bath</span>
+                        <span class="home-sqft"><i class="fa-solid fa-globe"></i> '.number_format($sqfoot->getValue($post)).' sqft</span>
+                    </p>';
+                    /* *<div class="home-actions">
+                        <a class="home-details" href="https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" title="Get details" target="_blank"><i class="icon-info"></i><span>Get Details</span></a>
+                        <a class="home-sharer" href="#" data-home-id="21523" title="Share"><i class="icon-share"></i><span>Share</span></a>
+                    </div>
+                    <section class="home-share-overlay" data-home-id="21523">
+                        <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" target="_blank"><i class="icon-facebook"></i></a>
+                        <a class="twitter" href="https://twitter.com/share?url=https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" target="_blank"><i class="icon-twitter "></i></a>
+                        <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media=https://www.morgantaylorhomes.com/wp-content/uploads/2021/07/20210708145711683271000000-o-384x256.jpg&amp;url=https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" target="_blank"><i class="icon-pinterest"></i></a>
+                    </section>
+                    **/ 
+            $result .= '</div></section>';
+
+
+
 
         }
         return $result;
