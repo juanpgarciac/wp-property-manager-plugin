@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * Class that handles the property search visual & functions
+ */
 class WP_Property_Manager_Search extends WP_Property_Manager_Base
 {
     public const SC_SEARCH = 'property-manager-search';
 
+    /**
+     * Insert scripts and styles
+     * @return [type]
+     */
     public static function enqueue_scripts()
     {
         wp_enqueue_style(self::getCPT().'-select2', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css', [], self::getVersion(), false);
@@ -11,6 +18,10 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         wp_enqueue_script(self::getCPT().'-search', self::getPublicUrl() . 'js/wp_property_manager_search.js', ['jquery'], self::getVersion(), false);
     }
 
+    /**
+     * Initialize search assets
+     * @return void
+     */
     public static function init()
     {
         add_action('wp_enqueue_scripts', [self::class,'enqueue_scripts']);
@@ -18,6 +29,10 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
     }
 
 
+    /**
+     * Print the property search form
+     * @return String
+     */
     public static function search_form()
     {
         //form
@@ -42,6 +57,10 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
     }
 
 
+    /**
+     * Print the location selector
+     * @return string
+     */
     public static function location_selector()
     {
         $location = isset($_GET['property-manager-location-select']) ? $_GET['property-manager-location-select'] : null;
@@ -64,6 +83,10 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         return $label.$input;
     }
 
+    /**
+     * Print the construction selector
+     * @return string
+     */
     public static function construction_selector()
     {
         $selector = 'property-manager-construction-select';
@@ -87,6 +110,10 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         return $label.$input;
     }
 
+    /**
+     * Print the price selector
+     * @return string
+     */
     public static function price_selector()
     {
         $pricerange = [
@@ -114,12 +141,10 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
         return $selectorlabel.$input;
     }
 
-    public static function property_item()
-    {
-    }
-
-
-
+    /**
+     * HTML to be render after the search form shorcode
+     * @return string
+     */
     public static function create_shortcode_property_manager_search()
     {
         $location = isset($_GET['property-manager-location-select']) ? $_GET['property-manager-location-select'] : null;
@@ -170,7 +195,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
                         'meta_query' => $meta_query,
                     );
 
-        //dd($args);
+
         $query = new WP_Query($args);
 
         $result = '<div class="property-manager-search-result">';
@@ -185,7 +210,7 @@ class WP_Property_Manager_Search extends WP_Property_Manager_Base
             wp_reset_postdata();
 
         endif;
-        $resul .= '</div>';
+        $result .= '</div>';
         return self::search_form().$result;
     }
 }

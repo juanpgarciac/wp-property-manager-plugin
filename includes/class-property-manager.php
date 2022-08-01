@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Handles the general initializations
+ */
 class WP_Property_Manager extends WP_Property_Manager_Base
 {
     public static function init($initClasses = null)

@@ -6,8 +6,8 @@
  */
 /*
 Plugin Name: Property Manager
-Plugin URI: http://google.com/
-Description: Ptoperty manager description
+Plugin URI: http://github.com/juanpgarciac/wp-property-manager-plugin
+Description: A Property manager plugin
 Author: JPG
 Version: 1.0.0
 Author URI: http://github.com/juanpgarciac
@@ -18,28 +18,41 @@ if (! defined('WPINC')) {
     die;
 }
 
+/**
+ * run the proper activation method
+ * @return void
+ */
 function activate_property_manager()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-property-manager-activator.php';
     WP_Property_Manager_Activator::activate();
 }
 
+/**
+ * run the proper deactivation method
+ * @return void
+ */
 function deactivate_property_manager()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-property-manager-deactivator.php';
     WP_Property_Manager_Deactivator::deactivate();
 }
 
+//Activate proper activation and deactivation hooks
 register_activation_hook(__FILE__, 'activate_property_manager');
 register_deactivation_hook(__FILE__, 'deactivate_property_manager');
 
+//Initialize the plugin
 if (!class_exists('WP_Property_Manager_Base')) {
+
+    //Some constants
     define('WP_PM_VERSION', '1.0.0');
     define('WP_PM_CPT', 'property-manager-cpt');
     define('WP_PM_DOMAIN', 'property-manager-domain');
     define('WP_PM_PLUGINDIR', plugin_dir_path(__FILE__));
     define('WP_PM_PLUGINURL', plugin_dir_url(__FILE__));
 
+    //Custom quick autoloader
     $fileGroups = [
 
         plugin_dir_path(__FILE__)."includes/*.php",
@@ -59,7 +72,8 @@ if (!class_exists('WP_Property_Manager_Base')) {
             }
         }
     }
-
+    
+    
     $initClasses = [
         WP_Property_Manager_CPT::class,
         WP_Property_Manager_Taxonomy::class,
@@ -80,25 +94,34 @@ if (!class_exists('WP_Property_Manager_Base')) {
     ];
 
     WP_Property_Manager::init($initClasses);
-
-    if (is_admin()) {
-        $initAdminClasses = [
-
-        ];
+    
+    if (is_admin()) {        
+        $initAdminClasses = [ ];
         WP_Property_Manager_Admin::init($initAdminClasses);
     }
 
-    $initPublicClass = [
-        WP_Property_Manager_Search::class
-    ];
+    $initPublicClass = [ WP_Property_Manager_Search::class ];
     WP_Property_Manager_Public::init($initPublicClass);
 }
 
-function dd(...$args)
-{
-    ob_clean();
-    foreach ($args as $a) {
-        var_dump($a);
+
+
+if(!function_exists('dd')){
+    /**
+     * "Dump and Die"
+     * Print the arguments sent then die. 
+     * For debuggin purposes only
+     * @param mixed ...$args
+     * 
+     * @return void
+     */
+    function dd(...$args)
+    {
+        ob_clean();
+        foreach ($args as $a) {
+            var_dump($a);
+        }
+        die();
     }
-    die();
 }
+

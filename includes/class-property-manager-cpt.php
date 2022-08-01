@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Class that handles the Property Manager Custom Post Type registration and visuals
+ * 
+ */
 class WP_Property_Manager_CPT extends WP_Property_Manager_Base
 {
+    /**
+     * Register the Property Manager Custom Post Type
+     * @return void
+     */
     public static function register_cpt()
     {
         $labels = array(
@@ -55,20 +63,20 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
         register_post_type(self::getCPT(), $args);
     }
 
+    /**
+     * Initialize actions and filters
+     * @return void
+     */
     public static function init()
     {
         add_action('init', [self::class,'register_cpt'], 0);
-        //add_filter('the_content', [self::class,'show_item_content'], 0 );
         add_filter('single_template', [self::class,'single_template_override'], 0);
     }
 
-
-    public function getID()
-    {
-        return get_the_ID();
-    }
-
-
+    /**
+     * Render a single property from the result list 
+     * @return string
+     */
     public static function show_list_item()
     {
         $result = '';
@@ -106,36 +114,19 @@ class WP_Property_Manager_CPT extends WP_Property_Manager_Base
                         <span class="home-bath"><i class="fa-solid fa-bath"></i> '.$baths->getValue().' Bath</span>
                         <span class="home-sqft"><i class="fa-solid fa-globe"></i> '.number_format($sqfoot->getValue()).' sqft</span>
                     </p>';
-            /* *<div class="home-actions">
-                <a class="home-details" href="https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" title="Get details" target="_blank"><i class="icon-info"></i><span>Get Details</span></a>
-                <a class="home-sharer" href="#" data-home-id="21523" title="Share"><i class="icon-share"></i><span>Share</span></a>
-            </div>
-            <section class="home-share-overlay" data-home-id="21523">
-                <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" target="_blank"><i class="icon-facebook"></i></a>
-                <a class="twitter" href="https://twitter.com/share?url=https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" target="_blank"><i class="icon-twitter "></i></a>
-                <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media=https://www.morgantaylorhomes.com/wp-content/uploads/2021/07/20210708145711683271000000-o-384x256.jpg&amp;url=https://www.morgantaylorhomes.com/laveen/durango/32x3-w-carver-rd-laveen-az-85339/" target="_blank"><i class="icon-pinterest"></i></a>
-            </section>
-            **/
             $result .= '</div></section><br>';
         }
         return $result;
     }
 
-
-    public static function show_item_content($content)
-    {
-        if (is_singular(self::getCPT()) && in_the_loop()) {
-            // change stuff
-            $content .= '<p>here we are on my custom post type</p>';
-        }
-
-        return $content;
-    }
-
-
+    /**
+     * This filters allow to override the single template from plugin
+     * @param mixed $template
+     * 
+     * @return string
+     */
     public static function single_template_override($template)
     {
-        //dd(self::getCPT(),get_post_type(get_queried_object_id()),$template,strpos($template,'single-'.self::getCPT().'.php'));
         if (self::getCPT() == get_post_type(get_queried_object_id()) && strpos($template, 'single-'.self::getCPT().'.php') === false) {
             $template = self::getPublicDir() . 'single-property-manager-cpt.php';
         }

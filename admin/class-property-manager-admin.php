@@ -2,13 +2,26 @@
 
 
 
+/**
+ * This class manage the initialization of admin assets
+ */
 class WP_Property_Manager_Admin extends WP_Property_Manager_Base
 {
+    /**
+     *
+     * @return void
+     */
     public static function enqueue_scripts()
     {
         wp_enqueue_script(self::getCPT().'-admin-script', self::getAdminUrl() . 'js/wp_property_manager.js', array( 'jquery' ), self::getVersion(), false);
     }
 
+    /**
+     * Initialize the admin classes
+     * @param null $initClasses
+     *
+     * @return [type]
+     */
     public static function init($initClasses = null)
     {
         add_action('admin_enqueue_scripts', [self::class,'enqueue_scripts']);
@@ -21,8 +34,13 @@ class WP_Property_Manager_Admin extends WP_Property_Manager_Base
     }
 
 
-    /* Filter CPT via Custom Taxonomy */
-    /* https://generatewp.com/filtering-posts-by-taxonomies-in-the-dashboard/ */
+    /**
+     * This function adds the filters in the property-manager-cpt list
+     * @param mixed $post_type
+     * @param mixed $which
+     *
+     * @return void
+     */
     public static function filter_backend_by_taxonomies($post_type, $which)
     {
         // Apply this to a specific CPT

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Property manager base class, basically to handle constants 
+ */
 abstract class WP_Property_Manager_Base
 {
     public static function init()

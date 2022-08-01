@@ -1,11 +1,17 @@
 <?php
+/**
+ * The template for displaying all single posts for protery-manager-cpt
+ *
+ * If you wan to override this template, copy this file to the template folder 
+ * 
+ */
 
 get_header();
 
 $result = '';
 $post = get_post();
 if (!empty($post)) {
-    /* */
+    
     $pricemeta = new WP_Property_Manager_Price_Metabox();
     $type = new WP_Property_Manager_Type_Metabox();
     $gallery = new WP_Property_Manager_Gallery_Metabox();
@@ -15,15 +21,17 @@ if (!empty($post)) {
     $sqfoot = new WP_Property_Manager_Surface_Metabox();
 
     $address = new WP_Property_Manager_Address_Metabox();
+    
     $coordinates = new WP_Property_Manager_Coordinates_Metabox();
+    $coordinates = unserialize($coordinates->getValue());
+
     $garage = new WP_Property_Manager_Garage_Metabox();
     $salestatus = new WP_Property_Manager_Sale_Status_Metabox();
     $constructionstatus = new WP_Property_Manager_Construction_Status_Metabox();
 
     $location  = get_the_terms(get_the_ID(), WP_Property_Manager_Taxonomy::TAX_LOCATION);
-    $coordinates = unserialize($coordinates->getValue());
-
-    //dd($address->getValue(),$coordinates->getValue(),$garage->getValue(),$salestatus->getValue(),$constructionstatus->getValue(),$location);?>  
+    
+?>
 <style>
     .property-container{
         width:80%;
