@@ -43,7 +43,9 @@ if (!empty($post)) {
 
 <div class="property-container">
     <h2><?=get_the_title()?></h2>
-    <h4>Located at:  <?=implode(', ', array_column($location, 'name')); ?></h4>
+    <?php if(!empty($location)):?>
+    <h4>Located at:  <?=implode(', ', array_reverse(array_column($location,'name'))); ?></h4>
+    <?php endif;?>
     <br>
     <section>
         <h3>Specs</h3>
