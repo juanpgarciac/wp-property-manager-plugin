@@ -30,7 +30,9 @@ if (!empty($post)) {
         margin:0 auto;
     }
     .property-container section{
-        margin-bottom: 20px;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 5px;
     }
 </style>
 
